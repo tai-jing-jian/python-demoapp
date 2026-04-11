@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-demoapp
+  namespace: demoapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-demoapp
+  template:
+    metadata:
+      labels:
+        app: python-demoapp
+    spec:
+      containers:
+        - name: demoapp
+          image: $IMAGE_NAME:$IMAGE_TAG
+          imagePullPolicy: Always       
+          ports:
+            - name: http
+              protocol: TCP
+              containerPort: 5000
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 512Mi
+            requests:
+              cpu: 500m
+              memory: 256Mi
